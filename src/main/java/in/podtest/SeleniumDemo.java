@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.support.ui.Select;
 
 import java.time.Duration;
 import java.util.List;
@@ -81,8 +82,84 @@ public class SeleniumDemo {
             System.out.println(row.findElement(By.xpath("td[4]/span")).getText());
         }
 
+        int colIndex = d1.getColumnIndex("Quantity");
+        System.out.println("Col position is: "+colIndex);
+        int rowIndex = d1.getRowIndex("Nike air zoom pegasus 35", "Green");
+        System.out.println("Row position is: "+rowIndex);
+        d1.deleteItem(rowIndex);
 
 
+        String qty = d1.getQuantity(d1.getRowIndex("Mix and match chuck taylor all star", "Grey")     , d1.getColumnIndex("Quantity"));
+        System.out.println(qty);
+
+        d1.click("//a[@class='button primary']/span[text()='CHECKOUT']");
+
+
+        //Dropdown Approach1
+        //Select countryDD = new Select(wd.findElement(By.xpath("//select[contains(@id, 'country')]")));
+        //countryDD.selectByValue("IN");
+
+        //Approach2:
+        d1.click("//select[contains(@id,'country')]");
+
+        List<WebElement> ddValues =  wd.findElements(By.xpath("//select[contains(@id,'country')]/option"));
+        String valueTobeSelected ="KR";
+        for(WebElement ele: ddValues) {
+            if(ele.getAttribute("value").equalsIgnoreCase(valueTobeSelected)) {
+                ele.click();
+                break;
+            }
+        }
+
+        d1.click("//select[contains(@id,'country')]");
+
+
+
+
+
+
+    }
+
+    public String getQuantity(int rowpos, int colpos) {
+
+    return wd.findElement(By.xpath("//tbody/tr["+rowpos+"]/td["+colpos+"]")).getText();
+
+    }
+
+    public void deleteItem(int rowPosition) {
+        wd.findElement(By.xpath("//tbody/tr["+rowPosition+"]/td[1]//a[contains(@class,'text-textSubdued')]")).click();
+    }
+
+
+    public int getColumnIndex(String ColumnName) {
+        int tolColumnCount = wd.findElements(By.xpath("//thead/tr/td")).size();
+        int columnPosition = -1;
+        for(int i =1; i <=tolColumnCount; i++) {
+            if (wd.findElement(By.xpath("//thead/tr/td["+i+"]/span")).getText().equalsIgnoreCase(ColumnName)){
+                columnPosition = i;
+                break;
+            }
+        }
+        return columnPosition;
+    }
+
+    //tbody/tr[1]/td[1]//div[contains(@class,'cart-item-variant-options')]//li[2]/span[2]
+    //tbody/tr[1]/td[1]//div[contains(@class,'cart-tem-info')]/a
+    public int getRowIndex(String itemName, String color) {
+        //tbody/tr[3]/td[1]//div[@class='cart-tem-info']/a
+        int rowPosition = -1;
+
+        List<WebElement> rows =  wd.findElements(By.xpath("//tbody/tr"));
+        for(int i =1 ; i<= rows.size(); i++) {
+            if (wd.findElement(By.xpath("//tbody/tr["+i+"]/td[1]//div[contains(@class,'cart-tem-info')]/a")).getText().equalsIgnoreCase(itemName)
+                    &&
+              wd.findElement(By.xpath("//tbody/tr["+i+"]/td[1]//div[contains(@class,'cart-item-variant-options')]//li[2]/span[2]")).getText().equalsIgnoreCase(color))
+            {
+                rowPosition =i;
+                break;
+            }
+        }
+        return rowPosition;
     }
 
     public String getText(String locator) {
