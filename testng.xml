@@ -3,7 +3,11 @@
     <test name="Chrome Browser Testing">
         <parameter name="browserName" value="chrome"></parameter>
         <classes>
-            <class name="in.podtest.JIRA100"></class>
+            <class name="in.podtest.testngcases.JIRA100">
+                <methods>
+                    <include name="e2eTC"></include>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>

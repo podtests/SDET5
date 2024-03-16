@@ -4,10 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 
 import java.time.Duration;
 
@@ -20,6 +17,11 @@ public class WaitManager {
     public static void setExplicitWait(WebDriver wd, WebElement e1) {
         WebDriverWait wait = new WebDriverWait(wd, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.elementToBeClickable(e1));
+    }
+
+    public static void setExplicitWait(WebDriver wd, ExpectedCondition ec) {
+        WebDriverWait wait = new WebDriverWait(wd, Duration.ofSeconds(10));
+        wait.until(ec);
     }
 
 
