@@ -5,7 +5,18 @@
         <classes>
             <class name="in.podtest.testngcases.JIRA100">
                 <methods>
-                    <include name="e2eTC"></include>
+                    <include name="loginTC"></include>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Firefox Browser Testing">
+        <parameter name="browserName" value="firefox"></parameter>
+        <classes>
+            <class name="in.podtest.testngcases.JIRA100">
+                <methods>
+                    <include name="loginTC"></include>
                 </methods>
             </class>
         </classes>
