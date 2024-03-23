@@ -45,6 +45,7 @@ public class BaseTest {
     public void preSteps(String browserName) throws MalformedURLException {
             driver = new DriverManager();
             wd = driver.getDriver(browserName);
+            wd.manage().window().maximize();
     }
 
     @AfterMethod
