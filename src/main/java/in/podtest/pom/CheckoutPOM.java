@@ -30,6 +30,8 @@ public class CheckoutPOM {
     By expressDelivery = By.xpath("//span[contains(text(),'Express Delivery')]//preceding::input[@type='radio' and @id='method1']");
 
     By continueToPayment = By.xpath("//button/span[text()='Continue to payment']");
+
+    By codMode = By.xpath("//div[contains(@class,'payment-method-list')][1]//a");
     public CheckoutPOM(WebDriver wd) {
         this.wd = wd;
     }
@@ -87,6 +89,16 @@ public class CheckoutPOM {
         else {
             wd.findElement(expressDelivery).click();
         }
+        return this;
+    }
+
+    public CheckoutPOM selectPaymentMode() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        wd.findElement(codMode).click();
         return this;
     }
 

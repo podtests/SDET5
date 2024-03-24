@@ -5,7 +5,7 @@
         <classes>
             <class name="in.podtest.testngcases.JIRA100">
                 <methods>
-                    <include name="e2eTC"></include>
+                    <include name="e2eTC3"></include>
                 </methods>
             </class>
         </classes>

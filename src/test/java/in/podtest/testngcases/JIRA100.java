@@ -73,6 +73,20 @@ public class JIRA100 extends BaseTest{
 
     }
 
+    @Test
+    public void e2eTC3() {
+        login = new LoginPOM(wd);
+        checkout = new CheckoutPOM(wd);
+
+        login.get().fillEmail("akhiljda@gmail.com").fillPassword("Password")
+                .clickSubmit().waitForPageLoad();
+
+        checkout.get()
+                .waitForPageLoad().selectPaymentMode();
+
+
+    }
+
 
 
 
