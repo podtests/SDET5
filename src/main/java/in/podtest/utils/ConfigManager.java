@@ -12,15 +12,23 @@ public class ConfigManager {
 
     Properties prop;
 
-    public Properties readFile() throws IOException {
+    public Properties readFile()  {
 
         File f1 = new File(filePath);
-        FileInputStream fis = new FileInputStream(f1);
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(f1);
+            prop = new Properties();
+            prop.load(fis);
 
-        prop = new Properties();
-        prop.load(fis);
+            fis.close();
 
-        fis.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
         return prop;
     }

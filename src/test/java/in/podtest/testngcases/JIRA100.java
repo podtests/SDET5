@@ -2,8 +2,12 @@ package in.podtest.testngcases;
 
 import in.podtest.pom.CheckoutPOM;
 import in.podtest.pom.LoginPOM;
+import in.podtest.utils.ConfigManager;
+import in.podtest.utils.DriverThreadManager;
 import in.podtest.utils.ExcelManager;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -24,9 +28,12 @@ public class JIRA100 extends BaseTest{
         }
     }
 
-
     @Test(dataProvider = "credentials")
     public void loginTC(String UN, String PW) {
+
+        WebDriver wd;
+        wd = DriverThreadManager.createDriver(prop.readFile().getProperty("browserName"));
+        wd.manage().window().maximize();
         login = new LoginPOM(wd);
 
         login.get().fillEmail(UN).fillPassword(PW)
@@ -75,6 +82,9 @@ public class JIRA100 extends BaseTest{
 
     @Test
     public void e2eTC3() {
+        WebDriver wd;
+        wd = DriverThreadManager.createDriver(prop.readFile().getProperty("browserName"));
+        wd.manage().window().maximize();
         login = new LoginPOM(wd);
         checkout = new CheckoutPOM(wd);
 

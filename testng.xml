@@ -1,10 +1,11 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="e2e Test Execution">
+<suite name="e2e Test Execution" parallel="methods" thread-count="2">
     <test name="Chrome Browser Testing">
         <parameter name="browserName" value="chrome"></parameter>
         <classes>
             <class name="in.podtest.testngcases.JIRA100">
                 <methods>
+                    <include name="loginTC"></include>
                     <include name="e2eTC3"></include>
                 </methods>
             </class>
