@@ -1,5 +1,6 @@
 package in.podtest.testngcases;
 
+import in.podtest.pom.CartPOM;
 import in.podtest.pom.CheckoutPOM;
 import in.podtest.pom.LoginPOM;
 import in.podtest.utils.ConfigManager;
@@ -17,6 +18,8 @@ public class JIRA100 extends BaseTest{
     LoginPOM login;
 
     CheckoutPOM checkout;
+
+    CartPOM cartPOM;
 
     @DataProvider(name = "credentials")
     public Object[][] getdata() {
@@ -38,6 +41,22 @@ public class JIRA100 extends BaseTest{
 
         login.get().fillEmail(UN).fillPassword(PW)
                 .clickSubmit().waitForPageLoad();
+
+    }
+
+    @Test(dataProvider = "credentials")
+    public void readTableTC(String UN, String PW) {
+
+        WebDriver wd;
+        wd = DriverThreadManager.createDriver(prop.readFile().getProperty("browserName"));
+        wd.manage().window().maximize();
+        login = new LoginPOM(wd);
+        cartPOM = new CartPOM(wd);
+
+        login.get().fillEmail(UN).fillPassword(PW)
+                .clickSubmit().waitForPageLoad();
+
+        cartPOM.get().waitForPageLoad().getItemTableData2().readItemData();
 
     }
 
