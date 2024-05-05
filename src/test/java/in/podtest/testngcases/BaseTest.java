@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 
@@ -16,42 +17,22 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/*
+-------------------------
+Created By: Akhil Jain
+Owner: PodTest.in
+Website: https://podtest.in
+Email Address: akhil.jain@podtest.in
+-------------------------
+ */
 public class BaseTest {
 
-    WebDriver wd;
-    DriverManager driver;
-
     ConfigManager prop = new ConfigManager();
-    //String browserName;
-
-    /*
-    @BeforeMethod
-    public void preSteps() throws MalformedURLException {
-
-        try {
-        prop = new ConfigManager();
-        browserName = prop.readFile().getProperty("browserName");
-            System.out.println("Browser Name is: "+browserName);
-        driver = new DriverManager();
-        wd = driver.getDriver(browserName);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    */
 
 
-    @Parameters({"browserName"})
-    @BeforeMethod
-    public void preSteps(String browserName) throws MalformedURLException {
-          //  driver = new Driver();
-           // wd = driver.getDriver(browserName);
-          //  wd = DriverThreadManager.createDriver(browserName);
-          //  wd.manage().window().maximize();
+    @AfterSuite
+    public void tearDown() {
+        DriverThreadManager.tearDown();
     }
 
-    @AfterMethod
-    public void postSteps() {
-        //driver.tearDown();
-    }
 }

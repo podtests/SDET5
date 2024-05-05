@@ -3,7 +3,16 @@ package in.podtest.pom;
 import in.podtest.utils.WaitManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
+/*
+-------------------------
+Created By: Akhil Jain
+Owner: PodTest.in
+Website: https://podtest.in
+Email Address: akhil.jain@podtest.in
+-------------------------
+ */
 public class ItemPOM {
 
     WebDriver wd;
@@ -21,6 +30,8 @@ public class ItemPOM {
     By qty = By.xpath("//input[@name='qty']");
 
     By addToCartButton = By.xpath("//button[@type='button']/span[text()='ADD TO CART']");
+
+    By viewCartToastBox = By.xpath("//div[@class='Toastify']//a[text()='Continue Shopping']");
 
     public ItemPOM waitForPageLoad() {
         WaitManager.setExplicitWait(wd,wd.findElement(qty));
@@ -58,8 +69,13 @@ public class ItemPOM {
         return this;
     }
 
-    public void clickAddToCart() {
+    public ItemPOM clickAddToCart() {
         wd.findElement(addToCartButton).click();
+        return this;
     }
 
+    public ItemPOM waitForViewCartToast() {
+        WaitManager.setExplicitWait(wd, ExpectedConditions.visibilityOfElementLocated(viewCartToastBox));
+        return this;
+    }
 }

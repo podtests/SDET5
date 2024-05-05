@@ -3,10 +3,20 @@ package in.podtest.pom;
 import in.podtest.utils.WaitManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
+/*
+-------------------------
+Created By: Akhil Jain
+Owner: PodTest.in
+Website: https://podtest.in
+Email Address: akhil.jain@podtest.in
+-------------------------
+ */
 public class CheckoutPOM {
 
     WebDriver wd;
@@ -27,11 +37,19 @@ public class CheckoutPOM {
     By standardDelivery = By.xpath("//span[contains(text(),'Standard Delivery')]//preceding::input[@type='radio' and @id='method0']");
 
     By standardDeliverycss = By.cssSelector("input[id='method0']~span");
+
+    By shippingNoMethodMessage = By.xpath("//div[text()='Sorry, there is no available method for your address']");
     By expressDelivery = By.xpath("//span[contains(text(),'Express Delivery')]//preceding::input[@type='radio' and @id='method1']");
 
     By continueToPayment = By.xpath("//button/span[text()='Continue to payment']");
 
-    By codMode = By.xpath("//div[contains(@class,'payment-method-list')][1]//a");
+    By paymentFormSection = By.xpath("form[id='checkoutPaymentForm']");
+
+    By cashOnDeliveryMethod = By.xpath("//div[contains(@class,'payment-method-list')][1]//a");
+
+    By placeOrderButton = By.xpath("//button/span[text()='Place Order']");
+
+    By successMessage = By.xpath("//div[@class='checkout-success-customer-info']//div[@class='self-center']/div");
     public CheckoutPOM(WebDriver wd) {
         this.wd = wd;
     }
@@ -47,12 +65,7 @@ public class CheckoutPOM {
     }
 
     public CheckoutPOM waitForShippingMethodSectionLoad() {
-       // WaitManager.setExplicitWait(wd, ExpectedConditions.elementToBeClickable(standardDelivery));
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        WaitManager.setExplicitWait(wd, ExpectedConditions.elementToBeClickable(standardDelivery));
         return this;
     }
 
@@ -64,6 +77,8 @@ public class CheckoutPOM {
         selectCountry("US");
         selectProvince("US-AL");
         wd.findElement(postcode).sendKeys("201011");
+        Actions ac = new Actions(wd);
+        ac.sendKeys(Keys.TAB);
         return this;
     }
 
@@ -83,8 +98,8 @@ public class CheckoutPOM {
 
     public CheckoutPOM selectPaymentMethod(String paymentMethod) {
         if (paymentMethod.equalsIgnoreCase("standard")){
-            //wd.findElement(standardDelivery).click();
-            wd.findElement(standardDeliverycss).click();
+            wd.findElement(standardDelivery).click();
+            //wd.findElement(standardDeliverycss).click();
         }
         else {
             wd.findElement(expressDelivery).click();
@@ -92,15 +107,6 @@ public class CheckoutPOM {
         return this;
     }
 
-    public CheckoutPOM selectPaymentMode() {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        wd.findElement(codMode).click();
-        return this;
-    }
 
     public CheckoutPOM selectPaymentMethodJS(String paymentMethod) {
         JavascriptExecutor js = (JavascriptExecutor) wd;
@@ -112,6 +118,27 @@ public class CheckoutPOM {
     public CheckoutPOM clickContinueToPayment() {
         wd.findElement(continueToPayment).click();
         return this;
+    }
+
+    public CheckoutPOM waitForPaymentMethodToLoad() {
+        WaitManager.setExplicitWait(wd,ExpectedConditions.visibilityOfElementLocated(paymentFormSection));
+        return this;
+    }
+
+    public CheckoutPOM selectCashOnDelivery() {
+        wd.findElement(cashOnDeliveryMethod).click();
+        return this;
+    }
+
+    public CheckoutPOM clickPlaceOrder() {
+        WaitManager.setExplicitWait(wd, ExpectedConditions.elementToBeClickable(placeOrderButton));
+        wd.findElement(placeOrderButton).click();
+        return this;
+    }
+
+    public String verifySuccessPage() {
+        WaitManager.setExplicitWait(wd, ExpectedConditions.urlContains("checkout/success"));
+        return wd.findElement(successMessage).getText();
     }
 
 }

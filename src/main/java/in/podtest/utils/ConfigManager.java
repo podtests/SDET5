@@ -6,6 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+/*
+-------------------------
+Created By: Akhil Jain
+Owner: PodTest.in
+Website: https://podtest.in
+Email Address: akhil.jain@podtest.in
+-------------------------
+ */
 public class ConfigManager {
 
     String filePath = "src/test/resources/config.properties";

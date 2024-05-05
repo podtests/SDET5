@@ -8,6 +8,14 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/*
+-------------------------
+Created By: Akhil Jain
+Owner: PodTest.in
+Website: https://podtest.in
+Email Address: akhil.jain@podtest.in
+-------------------------
+ */
 public class DriverManager {
 
     WebDriver wd;

@@ -9,6 +9,14 @@ import org.openqa.selenium.WebDriver;
 
 import java.net.MalformedURLException;
 
+/*
+-------------------------
+Created By: Akhil Jain
+Owner: PodTest.in
+Website: https://podtest.in
+Email Address: akhil.jain@podtest.in
+-------------------------
+ */
 public class LoginSD {
 
     WebDriver wd;

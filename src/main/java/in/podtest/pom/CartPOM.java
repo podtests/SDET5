@@ -7,6 +7,14 @@ import org.openqa.selenium.WebElement;
 
 import java.util.*;
 
+/*
+-------------------------
+Created By: Akhil Jain
+Owner: PodTest.in
+Website: https://podtest.in
+Email Address: akhil.jain@podtest.in
+-------------------------
+ */
 public class CartPOM {
 
     WebDriver wd;

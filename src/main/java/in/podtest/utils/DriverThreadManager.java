@@ -7,6 +7,14 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/*
+-------------------------
+Created By: Akhil Jain
+Owner: PodTest.in
+Website: https://podtest.in
+Email Address: akhil.jain@podtest.in
+-------------------------
+ */
 public class DriverThreadManager {
 
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
@@ -24,6 +32,10 @@ public class DriverThreadManager {
     public static WebDriver createDriver(String browserName) {
         setDriver(browserName);
         return driver.get();
+    }
+
+    public static void tearDown() {
+        driver.remove();
     }
 
 }
